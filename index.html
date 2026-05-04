@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Wi-Fi · edu.xunta.gal</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: rgba(0,0,0,0.1);
+    --border-strong: rgba(0,0,0,0.18);
+    --text: #1a1917;
+    --text-muted: #6b6a65;
+    --text-hint: #9b9a95;
+    --blue-bg: #e8f0fb;
+    --blue-text: #1a56b0;
+    --blue-border: #b0c8ef;
+    --amber-bg: #fef3da;
+    --amber-text: #92570a;
+    --amber-border: #f5d490;
+    --green-bg: #eaf5e2;
+    --green-text: #2d7a1f;
+  }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 1.5rem;
+  }
+
+  .header-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    margin-bottom: 10px;
+  }
+
+  .header-card {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .wifi-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--blue-bg);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .header-info p:first-child {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    margin-bottom: 4px;
+  }
+
+  .ssid {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .header-info p:last-child {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-family: Georgia, serif;
+  }
+
+  /* Warning */
+  .warning {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .warning svg { flex-shrink: 0; margin-top: 1px; }
+
+  .warning p {
+    font-size: 13px;
+    color: var(--amber-text);
+    line-height: 1.5;
+    font-family: Georgia, serif;
+  }
+
+  .warning strong {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+  }
+
+  /* OS Tabs */
+  .tabs-label {
+    font-size: 12px;
+    color: var(--text-hint);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+  }
+
+  .tab-btn {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 7px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+    font-family: Georgia, serif;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+
+  .tab-btn:hover { background: var(--surface2); color: var(--text); }
+
+  .tab-btn.active {
+    background: var(--blue-bg);
+    color: var(--blue-text);
+    border-color: var(--blue-border);
+  }
+
+  /* OS Content */
+  .os-panel {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text);
+    font-family: Georgia, serif;
+  }
+
+  .panel-tag {
+    background: var(--green-bg);
+    color: var(--green-text);
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Steps */
+  .steps { margin-bottom: 1.25rem; }
+
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    color: var(--blue-text);
+    font-size: 11px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.65;
+    font-family: Georgia, serif;
+  }
+
+  .step-text strong {
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    background: var(--surface2);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  .step-text em {
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    color: var(--blue-text);
+  }
+
+  /* Params table */
+  .params {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .params-header {
+    padding: 8px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-hint);
+  }
+
+  .param-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .param-row:last-child { border-bottom: none; }
+  .param-row:nth-child(even) { background: var(--surface2); }
+
+  .param-key {
+    color: var(--text-muted);
+    font-family: Georgia, serif;
+  }
+
+  .param-val {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text);
+    text-align: right;
+    max-width: 60%;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text-hint);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 1rem 0.75rem; }
+    .header-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .ssid { font-size: 18px; }
+    .param-val { max-width: 55%; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <p class="header-eyebrow">Consellería de Educación · Xunta de Galicia</p>
+    <div class="header-card">
+      <div class="wifi-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.5 8.5C5.4 4.8 10.4 3 12 3s6.6 1.8 10.5 5.5" stroke="#1a56b0" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M4.5 11.5C7.2 9 9.8 8 12 8s4.8 1 7.5 3.5" stroke="#1a56b0" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M7.5 14.5C9 13 10.5 12.5 12 12.5s3 .5 4.5 2" stroke="#1a56b0" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="12" cy="18" r="1.6" fill="#1a56b0"/>
+        </svg>
+      </div>
+      <div class="header-info">
+        <p>Red Wi-Fi corporativa</p>
+        <p class="ssid">edu.xunta.gal</p>
+        <p>Usa el mismo usuario y contraseña que el correo electrónico</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 1.5L14.5 13H1.5L8 1.5Z" stroke="#92570a" stroke-width="1.3" stroke-linejoin="round"/>
+      <line x1="8" y1="6" x2="8" y2="9.5" stroke="#92570a" stroke-width="1.3" stroke-linecap="round"/>
+      <circle cx="8" cy="11.5" r="0.7" fill="#92570a"/>
+    </svg>
+    <p>Antes de conectarte por primera vez, cambia tu contraseña en <strong>edu.xunta.gal/contausuario</strong></p>
+  </div>
+
+  <p class="tabs-label">Sistema operativo</p>
+
+  <div class="tabs" id="os-tabs">
+    <button class="tab-btn" onclick="showOS('android')" id="btn-android">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 18V9h12v9a2 2 0 01-2 2H8a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.5"/><path d="M9 9V6a3 3 0 016 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="4" y1="11" x2="6" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="18" y1="11" x2="20" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="21" x2="10" y2="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="21" x2="14" y2="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Android
+    </button>
+    <button class="tab-btn" onclick="showOS('windows')" id="btn-windows">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="3" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="13" y="13" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+      Windows
+    </button>
+    <button class="tab-btn" onclick="showOS('linux')" id="btn-linux">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="9" rx="5" ry="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 15c-3 1-5 3-5 5h18c0-2-2-4-5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="9" r="1" fill="currentColor"/><circle cx="14" cy="9" r="1" fill="currentColor"/></svg>
+      Linux
+    </button>
+    <button class="tab-btn" onclick="showOS('macos')" id="btn-macos">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M17 3.5C15.5 2.5 14 2 12 2c-1.5 0-3 .8-4 2-1 1.2-1.5 2.8-1 4.5C5 9.5 3 12 3 15c0 3.9 2.7 7 6 7 .8 0 1.5-.2 2-.5.5.3 1.2.5 2 .5 3.3 0 6-3.1 6-7 0-3-2-5.5-4-6.5.5-1.5.5-3.5-2-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      MacOS / iOS
+    </button>
+  </div>
+
+  <div id="os-content"></div>
+
+  <div class="footer">
+    edu.xunta.gal · Xunta de Galicia
+  </div>
+
+</div>
+
+<script>
+const data = {
+  android: {
+    title: 'Android',
+    tag: 'Más común',
+    steps: [
+      'Ve a <strong>Ajustes › Conexiones › Wi-Fi</strong>',
+      'Pulsa sobre <strong>edu.xunta.gal</strong> en la lista. Si no aparece, pulsa <strong>Añadir red</strong> e introduce el nombre <em>edu.xunta.gal</em>',
+      'Introduce los parámetros de la tabla de abajo',
+      'En opciones <strong>Avanzado</strong>, verifica que la autenticación de fase 2 es <strong>PAP</strong>',
+      'Pulsa <strong>Guardar</strong> o <strong>Conectar</strong>'
+    ],
+    params: [
+      ['Seguridad', '802.1x EAP / WPA2-Enterprise'],
+      ['Método EAP', 'TTLS'],
+      ['Certificado CA', 'Sin especificar / No validar'],
+      ['Autenticación fase 2', 'PAP'],
+      ['Identidad (usuario)', 'Sin @edu.xunta.gal'],
+      ['Contraseña', 'Tu contraseña corporativa']
+    ]
+  },
+  windows: {
+    title: 'Windows 8 / 10 / 11',
+    tag: null,
+    steps: [
+      'Abre <strong>Panel de control › Centro de redes y recursos compartidos</strong>',
+      'Pulsa <strong>Configurar una nueva conexión o red</strong> y elige <strong>Conectarse manualmente a una red inalámbrica</strong>',
+      'Nombre de red: <em>edu.xunta.gal</em> — Seguridad: <strong>WPA2-Enterprise</strong> — pulsa <strong>Siguiente</strong>',
+      'Pulsa <strong>Cambiar la configuración</strong> › pestaña <strong>Seguridad</strong> › método: <strong>Microsoft: EAP-TTLS</strong>',
+      'En <strong>Configuración</strong>: certificado <strong>GlobalSign</strong>, deshabilita privacidad de identidad, autenticación cliente: <strong>PAP</strong>',
+      'En <strong>Configuración avanzada</strong>: activa <em>Especificar modo de autenticación</em> › elige <strong>Autenticación de usuarios</strong>'
+    ],
+    params: [
+      ['SSID', 'edu.xunta.gal'],
+      ['Tipo de seguridad', 'WPA2-Enterprise'],
+      ['Método de autenticación', 'Microsoft: EAP-TTLS'],
+      ['Certificado CA', 'GlobalSign'],
+      ['Autenticación cliente', 'PAP'],
+      ['Usuario', 'Sin @edu.xunta.gal']
+    ]
+  },
+  linux: {
+    title: 'Ubuntu / Debian / CentOS',
+    tag: null,
+    steps: [
+      'Haz clic en el icono de red y selecciona <strong>edu.xunta.gal</strong> de la lista',
+      'Introduce los parámetros de la tabla de abajo en la ventana de autenticación',
+      'Pulsa <strong>Conectar</strong>',
+      'Si hay problemas, elimina la conexión desde <strong>Conexiones de red</strong> y vuelve a crearla con los mismos parámetros'
+    ],
+    params: [
+      ['Seguridad inalámbrica', 'WPA & WPA2 Enterprise'],
+      ['Autenticación', 'Tunneled TLS'],
+      ['Certificado CA', 'Ninguno'],
+      ['Autenticación interna', 'PAP'],
+      ['Nombre de usuario', 'Sin @edu.xunta.gal'],
+      ['Contraseña', 'Tu contraseña corporativa']
+    ]
+  },
+  macos: {
+    title: 'MacOS / iOS',
+    tag: null,
+    steps: [
+      '<strong>iOS:</strong> Descarga el perfil <em>edu.xunta.gal.mobileconfig</em> en el dispositivo',
+      'Ve a <strong>Ajustes › General › VPN y gestión de dispositivos</strong> e instala el perfil',
+      'Introduce tu usuario y contraseña corporativos durante la instalación',
+      '<strong>MacOS:</strong> Abre <strong>Apple Configurator</strong> › Archivo › Nuevo perfil › Wi-Fi › Configurar',
+      'Aplica los parámetros de la tabla, guarda y abre el archivo para instalarlo desde <strong>Preferencias del Sistema › Perfiles</strong>'
+    ],
+    params: [
+      ['SSID', 'edu.xunta.gal'],
+      ['Seguridad', '802.1x EAP / WPA2-Enterprise'],
+      ['Método EAP', 'TTLS'],
+      ['Autenticación fase 2', 'PAP'],
+      ['Usuario', 'Sin @edu.xunta.gal'],
+      ['Contraseña', 'Tu contraseña corporativa']
+    ]
+  }
+};
+
+function showOS(os) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + os).classList.add('active');
+  const d = data[os];
+  let html = '<div class="os-panel">';
+  html += '<div class="panel-header"><span class="panel-title">' + d.title + '</span>';
+  if (d.tag) html += '<span class="panel-tag">' + d.tag + '</span>';
+  html += '</div>';
+  html += '<div class="steps">';
+  d.steps.forEach((s, i) => {
+    html += '<div class="step"><div class="step-num">' + (i+1) + '</div><div class="step-text">' + s + '</div></div>';
+  });
+  html += '</div>';
+  html += '<div class="params">';
+  html += '<div class="params-header">Parámetros de configuración</div>';
+  d.params.forEach(([k, v]) => {
+    html += '<div class="param-row"><span class="param-key">' + k + '</span><span class="param-val">' + v + '</span></div>';
+  });
+  html += '</div></div>';
+  document.getElementById('os-content').innerHTML = html;
+}
+
+showOS('android');
+</script>
+</body>
+</html>
