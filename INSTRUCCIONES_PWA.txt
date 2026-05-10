@@ -1,0 +1,59 @@
+╔══════════════════════════════════════════════════════════════════╗
+║         Manual WiFi Edu.xunta — PWA (Progressive Web App)       ║
+╚══════════════════════════════════════════════════════════════════╝
+
+ESTRUCTURA DE ARCHIVOS
+──────────────────────
+  wifi-eduxunta/
+  ├── index.html            ← Renombra wifi_xunta_responsive.html
+  ├── manifest.json         ← Manifiesto PWA
+  ├── service-worker.js     ← Cache offline
+  └── icons/
+      ├── icon-72.png
+      ├── icon-96.png
+      ├── icon-128.png
+      ├── icon-144.png
+      ├── icon-152.png
+      ├── icon-192.png
+      ├── icon-384.png
+      └── icon-512.png      ← Crea estos iconos con tu logo
+
+PASOS PARA PUBLICAR LA APP
+───────────────────────────
+1. Crea la carpeta wifi-eduxunta/ en tu servidor web.
+2. Renombra wifi_xunta_responsive.html → index.html y cópialo.
+3. Copia manifest.json y service-worker.js junto a index.html.
+4. Crea la carpeta icons/ y añade los PNGs del logo en cada tamaño.
+   (Puedes generarlos gratis en: https://realfavicongenerator.net)
+5. Sube todo al servidor. Asegúrate de que se sirve por HTTPS
+   (requisito obligatorio para PWA).
+6. Abre la URL en Chrome/Edge/Safari → aparecerá el banner
+   "Añadir a pantalla de inicio" automáticamente.
+
+INSTALAR EN MÓVIL (sin servidor)
+──────────────────────────────────
+• Android Chrome: Menú ⋮ → "Añadir a pantalla de inicio"
+• iOS Safari:     Compartir □↑ → "Añadir a inicio"
+• Desktop Chrome/Edge: icono ⊕ en la barra de direcciones
+
+FUNCIONAMIENTO OFFLINE
+────────────────────────
+El service worker cachea todos los recursos en la primera visita.
+A partir de ahí funciona sin conexión a Internet.
+
+ACCESOS DIRECTOS (shortcuts)
+──────────────────────────────
+El manifiesto define 4 accesos directos que aparecen al mantener
+pulsado el icono de la app en Android:
+  • Android          → ?os=android
+  • Windows          → ?os=windows
+  • Linux            → ?os=linux
+  • MacOS / iOS      → ?os=apple
+
+COLORES CORPORATIVOS
+──────────────────────
+  theme_color:      #1a6cc8  (azul Edu.xunta)
+  background_color: #ddeaf9  (azul pálido)
+
+──────────────────────────────────────────────────────────────────
+Generado con Claude (Anthropic) · by OscarGF
